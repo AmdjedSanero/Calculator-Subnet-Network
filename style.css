@@ -1,0 +1,18 @@
+table {
+  width: 800px;
+  text-align: center;
+  height: 500px;
+  border: 1px solid black;
+}
+table tr th {
+  background-color: brown;
+  color: azure;
+}
+table tr td {
+  background-color: bisque;
+  color: brown;
+}
+.parent-table {
+  overflow-y: scroll;
+  width: max-content;
+}
