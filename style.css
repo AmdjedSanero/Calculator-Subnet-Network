@@ -1,18 +1,53 @@
-table {
-  width: 800px;
-  text-align: center;
-  height: 500px;
-  border: 1px solid black;
+.all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
 }
-table tr th {
+.ok {
   background-color: brown;
-  color: azure;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
-table tr td {
-  background-color: bisque;
-  color: brown;
+.ip {
+  height: 25px;
+  width: 200px;
+  font-size: 20px;
+  text-align: center;
 }
-.parent-table {
-  overflow-y: scroll;
-  width: max-content;
+.Select {
+  width: 60px;
+  height: 32px;
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+}
+table {
+  font-size: 20px;
+  width: 350px;
+  margin-top: 15px;
+}
+tr {
+  display: table-row;
+}
+td {
+  background-color: #cdcdcd;
+  color: black;
+}
+table td.title {
+  padding: 8px;
+  background-color: brown;
+
+  color: white;
+  width: 150px;
+}
+.tablau {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

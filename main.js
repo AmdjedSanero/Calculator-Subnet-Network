@@ -1,3 +1,19 @@
+let all = document.querySelector(".all");
+let select = document.createElement("select");
+let go = document.createElement("span");
+select.className = "Select";
+go.className = "ok";
+go.innerText = "GO!";
+for (let i = 1; i <= 32; i++) {
+  select.innerHTML =
+    select.innerHTML +
+    `
+  <option value="${i}">${i}</option>
+  `;
+}
+all.appendChild(select);
+all.appendChild(go);
+
 function ToBinary(decimal) {
   let binary = "";
   while (decimal > 0) {
@@ -155,23 +171,23 @@ function Masq(m) {
   adressMasq = a + "." + b + "." + c + "." + d;
   return adressMasq;
 }
-console.log(ConvertIptoBinary("192.168.100.154"));
-console.log(ConvertIptoDec(ConvertIptoBinary("192.168.100.154")));
+console.log(ConvertIptoBinary("41.200.104.12"));
+console.log(ConvertIptoDec(ConvertIptoBinary("41.200.104.12")));
 
-console.log("Class : " + ClassOfRsx("192.168.100.154"));
-let msq = Masq(18);
+console.log("Class : " + ClassOfRsx("41.200.104.12"));
+let msq = Masq(30);
 
 console.log("msq = " + msq);
 
 console.log(ConvertIptoDec(msq));
 Main();
 function Main() {
-  ip = ConvertIptoBinary("192.168.100.154");
+  ip = ConvertIptoBinary("41.200.104.12");
   let ipAfterSplit = ip.split(".");
   let [a, b, c, d] = ipAfterSplit;
   let ipWitoutDot = a + b + c + d;
-  let ipAfterSlice = ipWitoutDot.slice(0, 18);
-  for (let i = 18; i < 32; i++) {
+  let ipAfterSlice = ipWitoutDot.slice(0, 30);
+  for (let i = 30; i < 32; i++) {
     ipAfterSlice = ipAfterSlice + "0";
   }
   let q = ipAfterSlice.slice(0, 8);
@@ -183,7 +199,7 @@ function Main() {
 
   ipOne[31] = "1";
   ipOne = ipOne.join("");
-  for (let i = 18; i < 32; i++) {
+  for (let i = 30; i < 32; i++) {
     ipLast[i] = "1";
     if (i == 31) {
       ipLast[i] = "0";
