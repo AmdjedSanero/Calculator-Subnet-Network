@@ -1,5 +1,6 @@
 let all = document.querySelector(".all");
 let input = document.querySelector(".ip");
+let tablauu = document.querySelector(".tablau");
 
 let select = document.createElement("select");
 let go = document.createElement("span");
@@ -19,6 +20,7 @@ go.addEventListener("click", function () {
   var value = select.options[select.selectedIndex].value;
 
   Main(input.value, value);
+  tablauu.style.display = "flex";
 });
 
 function ToBinary(decimal) {
@@ -161,6 +163,8 @@ function ClassOfRsx(ip) {
     return (clas = "B");
   } else if (aINT >= 192 && aINT <= 223) {
     return (clas = "C");
+  } else if (aINT >= 224 && aINT <= 240) {
+    return (clas = "D");
   }
 }
 function Masq(m) {
