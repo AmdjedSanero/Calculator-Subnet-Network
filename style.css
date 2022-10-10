@@ -46,8 +46,13 @@ table td.title {
   color: white;
   width: 150px;
 }
+table td.de {
+  text-align: center;
+  font-weight: 500;
+}
 .tablau {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }

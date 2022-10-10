@@ -1,4 +1,6 @@
 let all = document.querySelector(".all");
+let input = document.querySelector(".ip");
+
 let select = document.createElement("select");
 let go = document.createElement("span");
 select.className = "Select";
@@ -13,6 +15,11 @@ for (let i = 1; i <= 32; i++) {
 }
 all.appendChild(select);
 all.appendChild(go);
+go.addEventListener("click", function () {
+  var value = select.options[select.selectedIndex].value;
+
+  Main(input.value, value);
+});
 
 function ToBinary(decimal) {
   let binary = "";
@@ -171,23 +178,26 @@ function Masq(m) {
   adressMasq = a + "." + b + "." + c + "." + d;
   return adressMasq;
 }
-console.log(ConvertIptoBinary("41.200.104.12"));
-console.log(ConvertIptoDec(ConvertIptoBinary("41.200.104.12")));
 
-console.log("Class : " + ClassOfRsx("41.200.104.12"));
-let msq = Masq(30);
+function Main(ipAddr, m) {
+  console.log(ConvertIptoBinary(ipAddr));
+  console.log(ConvertIptoDec(ConvertIptoBinary(ipAddr)));
 
-console.log("msq = " + msq);
+  console.log("Class : " + ClassOfRsx(ipAddr));
 
-console.log(ConvertIptoDec(msq));
-Main();
-function Main() {
-  ip = ConvertIptoBinary("41.200.104.12");
+  let PageMasq = document.querySelector(".CA");
+  PageMasq.innerText = "Class " + ClassOfRsx(ipAddr);
+  let msq = Masq(m);
+
+  console.log("msq = " + msq);
+
+  console.log(ConvertIptoDec(msq));
+  ip = ConvertIptoBinary(ipAddr);
   let ipAfterSplit = ip.split(".");
   let [a, b, c, d] = ipAfterSplit;
   let ipWitoutDot = a + b + c + d;
-  let ipAfterSlice = ipWitoutDot.slice(0, 30);
-  for (let i = 30; i < 32; i++) {
+  let ipAfterSlice = ipWitoutDot.slice(0, m);
+  for (let i = m; i < 32; i++) {
     ipAfterSlice = ipAfterSlice + "0";
   }
   let q = ipAfterSlice.slice(0, 8);
@@ -196,10 +206,24 @@ function Main() {
   let r = ipAfterSlice.slice(24, 32);
   let ipOne = Array.from(ipAfterSlice);
   let ipLast = Array.from(ipAfterSlice);
+  let ipBroadCast = Array.from(ipAfterSlice);
 
+  for (let i = m; i < 32; i++) {
+    ipBroadCast[i] = "1";
+  }
+  ipBroadCast = ipBroadCast.join("");
+
+  let tb = ipBroadCast.slice(0, 8);
+  let yb = ipBroadCast.slice(8, 16);
+  let ub = ipBroadCast.slice(16, 24);
+  let ib = ipBroadCast.slice(24, 32);
+  let HostCast = tb + "." + yb + "." + ub + "." + ib;
+  console.log("BroadCast : " + ConvertIptoDec(HostCast));
+  let PageAB = document.querySelector(".AB");
+  PageAB.innerText = ConvertIptoDec(HostCast);
   ipOne[31] = "1";
   ipOne = ipOne.join("");
-  for (let i = 30; i < 32; i++) {
+  for (let i = m; i < 32; i++) {
     ipLast[i] = "1";
     if (i == 31) {
       ipLast[i] = "0";
@@ -211,15 +235,46 @@ function Main() {
   let u = ipOne.slice(16, 24);
   let i = ipOne.slice(24, 32);
   let HostOne = t + "." + y + "." + u + "." + i;
-  console.log(ConvertIptoDec(HostOne));
 
   let z = ipLast.slice(0, 8);
   let x = ipLast.slice(8, 16);
   let v = ipLast.slice(16, 24);
   let n = ipLast.slice(24, 32);
   let HostLast = z + "." + x + "." + v + "." + n;
-  console.log(ConvertIptoDec(HostLast));
+  if (m > 30) {
+    console.log("First Host : " + "NaN");
+    let PageAPM = document.querySelector(".APM");
+    PageAPM.innerText = "NaN";
+    console.log("Last Host : " + "NaN");
+    let PageADM = document.querySelector(".ADM");
+    PageADM.innerText = "NaN";
+
+    let PageNM = document.querySelector(".NM");
+
+    PageNM.innerText = `NaN`;
+  } else {
+    console.log("First Host : " + ConvertIptoDec(HostOne));
+    let PageAPM = document.querySelector(".APM");
+    PageAPM.innerText = ConvertIptoDec(HostOne);
+
+    console.log("Last Host : " + ConvertIptoDec(HostLast));
+
+    let PageADM = document.querySelector(".ADM");
+    PageADM.innerText = ConvertIptoDec(HostLast);
+    let nm = Math.pow(2, 32 - m);
+    let PageNM = document.querySelector(".NM");
+
+    PageNM.innerText = nm + ` (${nm - 2}) `;
+  }
+  let PageARB = document.querySelector(".ARB");
+  let PageSM = document.querySelector(".SM");
+  let PageSMB = document.querySelector(".SMB");
+  PageARB.innerText = ConvertIptoBinary(ipAddr);
+  PageSM.innerText = ConvertIptoDec(msq);
+  PageSMB.innerText = msq;
   ipAfterSliceAll = q + "." + w + "." + e + "." + r;
 
-  console.log(ConvertIptoDec(ipAfterSliceAll));
+  console.log("Network Adress : " + ConvertIptoDec(ipAfterSliceAll));
+  let PageAR = document.querySelector(".AR");
+  PageAR.innerText = ConvertIptoDec(ipAfterSliceAll);
 }
