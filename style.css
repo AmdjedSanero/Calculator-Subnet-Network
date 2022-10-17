@@ -60,7 +60,7 @@ tr {
   display: table-row;
 }
 td {
-  background-color: #cdcdcd;
+  background-color: burlywood;
   color: black;
 }
 table td.title {
