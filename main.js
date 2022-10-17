@@ -18,7 +18,7 @@ for (let i = 1; i <= 32; i++) {
 all.appendChild(select);
 let select3 = document.createElement("select");
 select3.className = "Select3";
-for (let i = 1; i <= 24; i++) {
+for (let i = 1; i <= 7; i++) {
   select3.innerHTML =
     select3.innerHTML +
     `
@@ -30,6 +30,7 @@ go.addEventListener("click", function () {
   var value = select.options[select.selectedIndex].value;
   var value2 = select.options[select3.selectedIndex].value;
   console.log("m : " + value + " n : " + value2);
+
   Main(input.value, value, value2);
   tablauu.style.display = "flex";
 });
@@ -234,6 +235,12 @@ function BinFormat(number, o) {
   return ip;
 }
 function Main(ipAddr, m, o) {
+  m = parseInt(m);
+  o = parseInt(o);
+  console.log(typeof m);
+  console.log(typeof o);
+  m = m + o;
+
   select2.innerHTML = `
   <option value="${ipAddr}">${ipAddr}</option>
   `;
