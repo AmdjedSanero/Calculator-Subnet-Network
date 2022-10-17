@@ -1,6 +1,7 @@
 let all = document.querySelector(".all");
 let input = document.querySelector(".ip");
 let tablauu = document.querySelector(".tablau");
+let select2 = document.querySelector(".Select2");
 
 let select = document.createElement("select");
 let go = document.createElement("span");
@@ -15,13 +16,27 @@ for (let i = 1; i <= 32; i++) {
   `;
 }
 all.appendChild(select);
-all.appendChild(go);
+let select3 = document.createElement("select");
+select3.className = "Select3";
+for (let i = 1; i <= 7; i++) {
+  select3.innerHTML =
+    select3.innerHTML +
+    `
+  <option value="${i}">${i}</option>
+  `;
+}
+
 go.addEventListener("click", function () {
   var value = select.options[select.selectedIndex].value;
-
-  Main(input.value, value);
+  var value2 = select.options[select3.selectedIndex].value;
+  console.log("m : " + value + " n : " + value2);
+  Main(input.value, value, value2);
   tablauu.style.display = "flex";
 });
+
+all.appendChild(select);
+all.appendChild(select3);
+all.appendChild(go);
 
 function ToBinary(decimal) {
   let binary = "";
@@ -58,6 +73,14 @@ function ConvertIptoDec(ip) {
 function To8(dec) {
   let k = ToBinary(dec);
   while (k.length != 8) {
+    k = "0" + k;
+    k.length++;
+  }
+  return k;
+}
+function ToN(dec, o) {
+  let k = ToBinary(dec);
+  while (k.length != o) {
     k = "0" + k;
     k.length++;
   }
@@ -183,8 +206,32 @@ function Masq(m) {
   return adressMasq;
 }
 
-function Main(ipAddr, m) {
+function IPtoDecWithoutDot(ip) {
+  let af = ip.slice(0, 8);
+  let bf = ip.slice(8, 16);
+  let cf = ip.slice(16, 24);
+  let df = ip.slice(24, 32);
+  and = af + "." + bf + "." + cf + "." + df;
+  return and;
+}
+function BinFormat(number, o) {
+  let ip = [];
+  let n = ToN(number, o);
+  ip.push(n);
+  for (let index = o; index < 8; index++) {
+    ip.push("0");
+  }
+  ip = ip.join("");
+
+  console.log(":" + ip);
+  return ip;
+}
+function Main(ipAddr, m, o) {
+  select2.innerHTML = `
+  <option value="${ipAddr}">${ipAddr}</option>
+  `;
   console.log(ConvertIptoBinary(ipAddr));
+
   console.log(ConvertIptoDec(ConvertIptoBinary(ipAddr)));
 
   console.log("Class : " + ClassOfRsx(ipAddr));
@@ -200,6 +247,57 @@ function Main(ipAddr, m) {
   let ipAfterSplit = ip.split(".");
   let [a, b, c, d] = ipAfterSplit;
   let ipWitoutDot = a + b + c + d;
+  console.log("A " + a);
+  console.log("B " + b);
+  console.log("C " + c);
+  console.log("D " + d);
+  let ipSR = "";
+  let zeroByte = "00000000";
+  let aBool = false;
+  let bBool = false;
+  let cBool = false;
+  let dBool = false;
+
+  if (m < 8) {
+    ipSR = a + zeroByte + zeroByte + zeroByte;
+    aBool = true;
+  } else if (m > 8 && m < 16) {
+    ipSR = a + zeroByte + zeroByte + zeroByte;
+    bBool = true;
+  } else if (m > 16 && m < 24) {
+    ipSR = a + b + zeroByte + zeroByte;
+    cBool = true;
+  } else if (m > 24 && m < 30) {
+    ipSR = a + b + c + zeroByte;
+    dBool = true;
+  }
+  console.log("IPSR " + ipSR);
+  console.log(IPtoDecWithoutDot(ipSR));
+  console.log(ConvertIptoDec(IPtoDecWithoutDot(ipSR)));
+  console.log(cBool);
+  let allSubAvaibleNumbers = Math.pow(2, o);
+  console.log(allSubAvaibleNumbers);
+
+  for (let indexX = 0; indexX < allSubAvaibleNumbers; indexX++) {
+    let IpSub;
+    let bin = BinFormat(indexX, o);
+    if (cBool == true) {
+      IpSub = a + "." + bin + "." + zeroByte + "." + zeroByte;
+    } else if (bBool == true) {
+      IpSub = a + "." + bin + "." + zeroByte + "." + zeroByte;
+    } else if (cBool == true) {
+      IpSub = a + "." + b + "." + bin + "." + zeroByte;
+    } else if (dBool == true) {
+      IpSub = a + "." + b + "." + c + "." + bin;
+    }
+    console.log(indexX + " " + ConvertIptoDec(IpSub));
+    select2.innerHTML =
+      select2.innerHTML +
+      `
+  <option value="${ConvertIptoDec(IpSub)}">${ConvertIptoDec(IpSub)}</option>
+  `;
+  }
+
   let ipAfterSlice = ipWitoutDot.slice(0, m);
   for (let i = m; i < 32; i++) {
     ipAfterSlice = ipAfterSlice + "0";
@@ -210,6 +308,7 @@ function Main(ipAddr, m) {
   let r = ipAfterSlice.slice(24, 32);
   let ipOne = Array.from(ipAfterSlice);
   let ipLast = Array.from(ipAfterSlice);
+
   let ipBroadCast = Array.from(ipAfterSlice);
 
   for (let i = m; i < 32; i++) {
@@ -233,6 +332,24 @@ function Main(ipAddr, m) {
       ipLast[i] = "0";
     }
   }
+  let ipSubLast = Array.from(ipOne);
+  console.log("ip one : " + ipOne);
+  for (let k = m + o; k < 32; k++) {
+    ipSubLast[k] = "1";
+    if (k == 31) {
+      ipSubLast[k] = "0";
+    }
+  }
+  ipSubLast = ipSubLast.join("");
+
+  let zt = ipSubLast.slice(0, 8);
+  let xt = ipSubLast.slice(8, 16);
+  let vt = ipSubLast.slice(16, 24);
+  let tt = ipSubLast.slice(24, 32);
+  let HostLastSub = zt + "." + xt + "." + vt + "." + tt;
+  console.log("Last sub " + HostLastSub);
+  console.log(ConvertIptoDec(HostLastSub));
+
   ipLast = ipLast.join("");
   let t = ipOne.slice(0, 8);
   let y = ipOne.slice(8, 16);
@@ -281,4 +398,8 @@ function Main(ipAddr, m) {
   console.log("Network Adress : " + ConvertIptoDec(ipAfterSliceAll));
   let PageAR = document.querySelector(".AR");
   PageAR.innerText = ConvertIptoDec(ipAfterSliceAll);
+  console.log(ipAfterSliceAll);
+  console.log(ConvertIptoDec(ipAfterSliceAll));
+
+  console.log(ipAfterSlice);
 }

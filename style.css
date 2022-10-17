@@ -1,9 +1,10 @@
 .all {
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 150px;
   gap: 10px;
   position: relative;
+  top: 350px;
 }
 .ok {
   background-color: brown;
@@ -26,6 +27,27 @@
   font-size: 20px;
   position: relative;
   top: 1px;
+}
+.Select2 {
+  width: 350px;
+  height: 32px;
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+  text-align: center;
+}
+.Select2 option:first-child {
+  background-color: brown;
+  color: white;
+}
+.Select3 {
+  width: 60px;
+  height: 32px;
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+  background-color: black;
+  color: white;
 }
 table {
   font-size: 20px;
@@ -52,8 +74,10 @@ table td.de {
 }
 .tablau {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: space-evenly;
   flex-direction: column;
-  display: none;
+  align-content: center;
+  position: absolute;
+  left: 700px;
 }
