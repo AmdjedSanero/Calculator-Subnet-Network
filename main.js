@@ -376,31 +376,20 @@ function Main(ipAddr, m, o) {
   let v = ipLast.slice(16, 24);
   let n = ipLast.slice(24, 32);
   let HostLast = z + "." + x + "." + v + "." + n;
-  if (m > 30) {
-    console.log("First Host : " + "NaN");
-    let PageAPM = document.querySelector(".APM");
-    PageAPM.innerText = "NaN";
-    console.log("Last Host : " + "NaN");
-    let PageADM = document.querySelector(".ADM");
-    PageADM.innerText = "NaN";
 
-    let PageNM = document.querySelector(".NM");
+  console.log("First Host : " + ConvertIptoDec(HostOne));
+  let PageAPM = document.querySelector(".APM");
+  PageAPM.innerText = ConvertIptoDec(HostOne);
 
-    PageNM.innerText = `NaN`;
-  } else {
-    console.log("First Host : " + ConvertIptoDec(HostOne));
-    let PageAPM = document.querySelector(".APM");
-    PageAPM.innerText = ConvertIptoDec(HostOne);
+  console.log("Last Host : " + ConvertIptoDec(HostLast));
 
-    console.log("Last Host : " + ConvertIptoDec(HostLast));
+  let PageADM = document.querySelector(".ADM");
+  PageADM.innerText = ConvertIptoDec(HostLast);
+  let nm = Math.pow(2, 32 - m);
+  let PageNM = document.querySelector(".NM");
 
-    let PageADM = document.querySelector(".ADM");
-    PageADM.innerText = ConvertIptoDec(HostLast);
-    let nm = Math.pow(2, 32 - m);
-    let PageNM = document.querySelector(".NM");
+  PageNM.innerText = nm + ` (${nm - 2}) `;
 
-    PageNM.innerText = nm + ` (${nm - 2}) `;
-  }
   let PageARB = document.querySelector(".ARB");
   let PageSM = document.querySelector(".SM");
   let PageSMB = document.querySelector(".SMB");
@@ -419,6 +408,11 @@ function Main(ipAddr, m, o) {
 }
 //////////////////
 function Main2(ipAddr, m, o) {
+  m = parseInt(m);
+  o = parseInt(o);
+  console.log(typeof m);
+  console.log(typeof o);
+  m = m + o;
   console.log(ConvertIptoBinary(ipAddr));
 
   console.log(ConvertIptoDec(ConvertIptoBinary(ipAddr)));
@@ -501,31 +495,19 @@ function Main2(ipAddr, m, o) {
   let v = ipLast.slice(16, 24);
   let n = ipLast.slice(24, 32);
   let HostLast = z + "." + x + "." + v + "." + n;
-  if (m > 30) {
-    console.log("First Host : " + "NaN");
-    let PageAPM = document.querySelector(".APM");
-    PageAPM.innerText = "NaN";
-    console.log("Last Host : " + "NaN");
-    let PageADM = document.querySelector(".ADM");
-    PageADM.innerText = "NaN";
 
-    let PageNM = document.querySelector(".NM");
+  console.log("First Host : " + ConvertIptoDec(HostOne));
+  let PageAPM = document.querySelector(".APM");
+  PageAPM.innerText = ConvertIptoDec(HostOne);
 
-    PageNM.innerText = `NaN`;
-  } else {
-    console.log("First Host : " + ConvertIptoDec(HostOne));
-    let PageAPM = document.querySelector(".APM");
-    PageAPM.innerText = ConvertIptoDec(HostOne);
+  console.log("Last Host : " + ConvertIptoDec(HostLast));
 
-    console.log("Last Host : " + ConvertIptoDec(HostLast));
+  let PageADM = document.querySelector(".ADM");
+  PageADM.innerText = ConvertIptoDec(HostLast);
+  let nm = Math.pow(2, 32 - m);
+  let PageNM = document.querySelector(".NM");
 
-    let PageADM = document.querySelector(".ADM");
-    PageADM.innerText = ConvertIptoDec(HostLast);
-    let nm = Math.pow(2, 32 - m);
-    let PageNM = document.querySelector(".NM");
-
-    PageNM.innerText = nm + ` (${nm - 2}) `;
-  }
+  PageNM.innerText = nm + ` (${nm - 2}) `;
   let PageARB = document.querySelector(".ARB");
   let PageSM = document.querySelector(".SM");
   let PageSMB = document.querySelector(".SMB");
