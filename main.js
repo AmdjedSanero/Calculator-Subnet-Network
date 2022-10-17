@@ -261,10 +261,7 @@ function Main(ipAddr, m, o) {
   let ipAfterSplit = ip.split(".");
   let [a, b, c, d] = ipAfterSplit;
   let ipWitoutDot = a + b + c + d;
-  console.log("A " + a);
-  console.log("B " + b);
-  console.log("C " + c);
-  console.log("D " + d);
+
   let ipSR = "";
   let zeroByte = "00000000";
   let aBool = false;
