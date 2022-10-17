@@ -281,7 +281,7 @@ function Main(ipAddr, m, o) {
   } else if (m > 16 && m < 24) {
     ipSR = a + b + zeroByte + zeroByte;
     cBool = true;
-  } else if (m > 24 && m < 30) {
+  } else if (m > 24 && m < 32) {
     ipSR = a + b + c + zeroByte;
     dBool = true;
   }
@@ -291,10 +291,12 @@ function Main(ipAddr, m, o) {
   console.log(cBool);
   let allSubAvaibleNumbers = Math.pow(2, o);
   console.log(allSubAvaibleNumbers);
-
+  let nbrSubs = document.querySelector(".nbrSubs");
+  nbrSubs.innerText = allSubAvaibleNumbers;
   for (let indexX = 0; indexX < allSubAvaibleNumbers; indexX++) {
     let IpSub;
     let bin = BinFormat(indexX, o);
+    console.log(bin + "xxxxxxxxxxx");
     if (aBool == true) {
       IpSub = a + "." + bin + "." + zeroByte + "." + zeroByte;
     } else if (bBool == true) {
@@ -304,6 +306,7 @@ function Main(ipAddr, m, o) {
     } else if (dBool == true) {
       IpSub = a + "." + b + "." + c + "." + bin;
     }
+    console.log(IpSub + "hhhhhhhhhhhhhhhhhhhhhhhhhh");
     console.log(indexX + " " + ConvertIptoDec(IpSub));
     select2.innerHTML =
       select2.innerHTML +
